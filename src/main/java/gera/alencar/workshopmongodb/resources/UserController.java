@@ -22,7 +22,7 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<UserDTO>> findAll() {
         List<User> users = userService.findAll();
-        List<UserDTO> userDTOs = users.stream().map(user -> new UserDTO(user)).collect(Collectors.toList());
+        List<UserDTO> userDTOs = users.stream().map(UserDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok().body(userDTOs);
     }
 
