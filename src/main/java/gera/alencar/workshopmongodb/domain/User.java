@@ -1,9 +1,12 @@
 package gera.alencar.workshopmongodb.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Document(collection = "user")
@@ -12,16 +15,19 @@ public class User implements Serializable {
 
     @Id
     private String id;
-    private String Name;
-    private String Email;
+    private String name;
+    private String email;
+
+    @DBRef(lazy = true)
+    private List<Post> posts = new ArrayList<>();
 
     public User(){
     }
 
     public User(String Id, String Name, String Email) {
         this.id = Id;
-        this.Name = Name;
-        this.Email = Email;
+        this.name = Name;
+        this.email = Email;
     }
 
     public String getId() {
@@ -33,19 +39,27 @@ public class User implements Serializable {
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        posts = posts;
     }
 
     @Override

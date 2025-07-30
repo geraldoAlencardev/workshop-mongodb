@@ -1,5 +1,6 @@
 package gera.alencar.workshopmongodb.resources;
 
+import gera.alencar.workshopmongodb.domain.Post;
 import gera.alencar.workshopmongodb.domain.User;
 import gera.alencar.workshopmongodb.dto.UserDTO;
 import gera.alencar.workshopmongodb.services.UserService;
@@ -53,5 +54,11 @@ public class UserController {
         user.setId(id);
         userService.update(user);
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/{id}/posts", method = RequestMethod.GET)
+    public ResponseEntity<List<Post>> findPostsByUser(@PathVariable String id) {
+        User user = userService.findById(id);
+        return ResponseEntity.ok().body(user.getPosts());
     }
 }
